@@ -35,6 +35,15 @@
     "@aws-cdk/core:target-partitions": [
       "aws",
       "aws-cn"
-    ]
-  }
+    ],
+    "development": {
+      "env": "development",
+      "url": "development.com"
+    },
+    "staging": {
+      "env": "staging",
+      "url": "staging.com"
+    }
+  },
+  "build": "npx tsc"
 }

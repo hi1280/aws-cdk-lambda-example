@@ -1,11 +1,16 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { createContext } from "../lib/context";
 import { AwsLambdaCicdExampleStack } from '../lib/main';
 
+export interface Context {
+  readonly env: string;
+  readonly url: string;
+}
+
 const app = new cdk.App();
-const context = createContext(app.node.tryGetContext("env"));
+const env = app.node.tryGetContext("env");
+const context = app.node.tryGetContext(env) as Context;
 new AwsLambdaCicdExampleStack(app, `AwsLambdaCicdExampleStack-${context.env}`, {
   path: 'lambda',
   handler: 'hello.handler',
