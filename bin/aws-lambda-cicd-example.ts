@@ -12,8 +12,8 @@ const app = new cdk.App();
 const env = app.node.tryGetContext("env");
 const context = app.node.tryGetContext(env) as Context;
 new AwsLambdaCicdExampleStack(app, `AwsLambdaCicdExampleStack-${context.env}`, {
-  path: 'lambda',
-  handler: 'hello.handler',
+  path: 'lambda/hello.ts',
+  handler: 'lambdaHandler',
   runtime: cdk.aws_lambda.Runtime.NODEJS_16_X,
   environmentValues: {
     NODE_ENV: context.env,

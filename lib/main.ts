@@ -1,4 +1,4 @@
-import { aws_lambda, Duration, Stack } from 'aws-cdk-lib';
+import { aws_lambda, aws_lambda_nodejs, Duration, Stack } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
 interface LambdaFunctionConfig {
@@ -15,10 +15,10 @@ export class AwsLambdaCicdExampleStack extends Stack {
   constructor(scope: Construct, id: string, props: LambdaFunctionConfig) {
     super(scope, id);
 
-    new aws_lambda.Function(this, `HelloFunction`, {
+    new aws_lambda_nodejs.NodejsFunction(this, `HelloFunction`, {
       functionName: `hello-function-${props.environmentValues.NODE_ENV}`,
       runtime: props.runtime,
-      code: aws_lambda.Code.fromAsset(props.path),
+      entry: props.path,
       handler: props.handler,
       timeout: Duration.minutes(15),
       environment: props.environmentValues
